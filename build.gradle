@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+    id 'java'
+}
+
+group = 'com.formula1'
+version = '1.0.0'
+
+sourceCompatibility = '17'
+targetCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+def platform = org.gradle.internal.os.OperatingSystem.current().isWindows() ? "win" :
+               org.gradle.internal.os.OperatingSystem.current().isLinux()   ? "linux" :
+               "mac"
+
+dependencies {
+    implementation "org.openjfx:javafx-controls:21.0.1:$platform"
+    implementation "org.openjfx:javafx-graphics:21.0.1:$platform"
+    implementation "org.openjfx:javafx-base:21.0.1:$platform"
+}
+
+application {
+    mainClass = 'com.formula1.Main'
+}
+
+run {
+    doFirst {
+        jvmArgs = [
+            '--module-path', configurations.runtimeClasspath.asPath,
+            '--add-modules', 'javafx.controls,javafx.graphics,javafx.base'
+        ]
+    }
+}
