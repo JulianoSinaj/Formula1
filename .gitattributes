@@ -1,0 +1,3 @@
+build/** linguist-vendored
+.gradle/** linguist-vendored
+*.html linguist-generated
